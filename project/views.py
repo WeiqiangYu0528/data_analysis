@@ -29,9 +29,9 @@ import time
 
 def index(request):
     files=os.listdir("./project/files")
-    files.remove(".DS_Store")
+    # files.remove(".DS_Store")
     files.sort()
-    filename = request.GET.get('fn', "sx-mathoverflow-c2q.txt")
+    filename = request.GET.get('fn', "soc-sign-bitcoinalpha.csv")
     data=readfile("./project/files/" + filename)
     details = preprocess(data)
     data_info = []
@@ -327,7 +327,7 @@ def dftojson(df,duration,communities):
     nodes2 = df[duration]['DST'][:500].unique()
     nodes = pd.DataFrame(np.unique(np.append(nodes1, nodes2)), columns=["id"])
     nodes['group'] = 0
-    if len(communities)>0:
+    if communities is not None:
         for index, coms in enumerate(communities):
             for node in coms:
                 inx = nodes[nodes['id'] == node].index[0]
