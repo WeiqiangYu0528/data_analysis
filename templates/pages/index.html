@@ -90,7 +90,7 @@
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Saved reports</span>
+              <span>Files</span>
               <a class="d-flex align-items-center text-muted" href="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
               </a>
@@ -120,20 +120,43 @@
                 <button class="btn btn-sm btn-outline-secondary">Export</button>
               </div>
 {#                       <form action="" method="get" id="form2">#}
+                <div class="dropdown" style="margin-right: 10px;">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      From
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      {% for year in time %}
+                    <button class="dropdown-item" value="{{ year }}"  onclick="$('#dropdownMenuButton1').text({{ year }})">{{ year }}</button>
+                      {% endfor %}
+                  </div>
+                </div>
+
+                <div class="dropdown" style="margin-right: 10px;">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      To
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      {% for year in time %}
+                    <button class="dropdown-item" value="{{ year }}" onclick="$('#dropdownMenuButton2').text({{ year }})">{{ year }}</button>
+                      {% endfor %}
+                  </div>
+                </div>
+
                 <div class="dropdown">
-                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                       Time Granularity
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" value="A" id="t1" >Year</button>
-                    <button class="dropdown-item" value="Q" id="t2" >Quarter</button>
-                    <button class="dropdown-item" value="M" id="t3" >Month</button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                    <button class="dropdown-item time" value="A" id="t1" onclick="$('#dropdownMenuButton3').text('Year')">Year</button>
+                    <button class="dropdown-item time" value="Q" id="t2" onclick="$('#dropdownMenuButton3').text('Quarter')">Quarter</button>
+                    <button class="dropdown-item time" value="M" id="t3" onclick="$('#dropdownMenuButton3').text('Month')">Month</button>
                   </div>
                 </div>
                            <input type="hidden" value="" name="tg" id="type">
                            <input type="hidden" value="{{ filename }}" name="fn">
-{#                       </form>#}
             </div>
           </div>
 
@@ -164,7 +187,9 @@
                 <tr>
                   <th>Min</th>
                   <th>Max</th>
-                  <th>Delta</th>
+                  <th>Maximum degree</th>
+                  <th>Minimum degree</th>
+                  <th>Average degree</th>
                {% ifequal filename|truncatechars:17  "soc-sign-bitcoin…" %}
                   <th>Range of edge weight</th>
                   <th>Percentage of positive edges</th>
@@ -202,8 +227,65 @@
             </table>
                   <div id="graph">  {{fig|safe}}</div>
 
-          <svg id="svg" width="1000" height="800"></svg>
+
+  <div class="btn-toolbar mb-2 mb-md-0">
+           <div class="dropdown" style="margin-right: 10px;">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              K
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" value="3"  onclick="$('#dropdownMenuButton8').text(3)">3</button>
+            <button class="dropdown-item" value="4"  onclick="$('#dropdownMenuButton8').text(4)">4</button>
+            <button class="dropdown-item" value="5"  onclick="$('#dropdownMenuButton8').text(5)">5</button>
+            <button class="dropdown-item" value="6"  onclick="$('#dropdownMenuButton8').text(6)">6</button>
+          </div>
+        </div>
+
+           <div class="dropdown" style="margin-right: 10px;">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Year
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% for year in time %}
+            <button class="dropdown-item" value="{{ year }}"  onclick="$('#dropdownMenuButton9').text({{ year }})">{{ year }}</button>
+              {% endfor %}
+          </div>
+        </div>
+
+               <div class="dropdown" style="margin-right: 10px;">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Month
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% for month in "x"|ljust:"12" %}
+            <button class="dropdown-item" value="{{ forloop.counter }}"  onclick="$('#dropdownMenuButton10').text({{ forloop.counter }})">{{ forloop.counter }}</button>
+              {% endfor %}
+          </div>
+        </div>
+
+  <button id="g">Submit</button>
+
+  </div>
+          <div id="newsvg">
+          <svg id="svg"></svg>
+          </div>
+
           <div id="result"></div>
+
+          <div id="olcpm">
+          {% for com in community %}
+          <p>{{ com }}</p>
+          {% endfor %}
+          </div>
+
+           <div id="heatmap">  {{heatmap|safe}}</div>
+           <div id="dataspace">  {{dataspace|safe}}</div>
+
+
+
           </div>
         </main>
       </div>
@@ -221,133 +303,207 @@
         </script>
 
     <script>
-         $(".dropdown-item").click(function () {
+         $(".time").click(function () {
       let tg = $(this).val();
-      $.ajax({
-        url: '/type/',
-        data: {
-          'tg': tg,
-          'fn':"{{filename}}"
-        },
-          type:"GET",
-        dataType: 'json',
-        success: function (data) {
-          if (data) {
-           $("#graph").html(data.fig)
-          }
-        }
-      });
-
+      let from=$("#dropdownMenuButton1").text();
+      if(from.length>4){
+          from = {{ time.0 }}
+      }
+      let to=$("#dropdownMenuButton2").text();
+       if(to.length>4){
+          to = {{ time|last }};
+      }
+      if(from>to){
+          alert("Wrong")
+      }else {
+          $.ajax({
+              url: '/type/',
+              data: {
+                  'tg': tg,
+                  'fn': "{{filename}}",
+                  'from': from,
+                  'to': to
+              },
+              type: "GET",
+              dataType: 'json',
+              success: function (data) {
+                  if (data) {
+                      $("#graph").html(data.fig)
+                  }
+              }
+          });
+      }
     });
+
     </script>
+
+    <script>
+     $("#g").click(function () {
+  let year=$("#dropdownMenuButton9").text();
+  let month=$("#dropdownMenuButton10").text();
+  let size=$("#dropdownMenuButton8").text();
+  if(year.length>4){
+      year = {{ time.0 }}
+  }
+   if(month.length>4){
+      month = 0
+  }
+   if(size.length>4){
+      size = 3
+  }
+      $.ajax({
+          url: '/graph/',
+          data: {
+              'k': size,
+              'fn': "{{filename}}",
+              'year': year,
+              'month': month,
+          },
+          type: "GET",
+          dataType: 'json',
+          success: function (data) {
+              if (data) {
+                  $("#olcpm").html(data.olcpm)
+              }
+              drawd3(""+data.d3js)
+          }
+      });
+});
+
+</script>
+
      <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-    var svg = d3.select("#svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-    var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-    var simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(function(d) { return d.id; }))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2));
-
-    function escape2Html(str) {
-     var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+     function escape2Html(str) {
+     let arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
      return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
     }
 
-    var data=escape2Html("{{graph}}")
+     function drawd3(json_data) {
+         d3.select("#svg").remove();
+         d3.select("#newsvg")
+             .append("svg")
+             .attr("id","svg")
+             .attr("width","1200")
+             .attr("height","650")
 
-    graph=$.parseJSON(data)
-    console.log(graph)
+         let svg = d3.select("#svg"),
+         width = +svg.attr("width"),
+         height = +svg.attr("height");
 
-       var link = svg.append("g")
-           .attr("class", "links")
-           .selectAll("line")
-           .data(graph.links)
-           .enter().append("line")
-           .attr("stroke-width", width * 0.003);
+
+         let color = d3.scaleOrdinal(d3.schemeCategory20);
+
+         let g = svg.append("g")
+        .attr("class", "everything");
+
+         let simulation = d3.forceSimulation()
+             .force("link", d3.forceLink().id(function (d) {
+                 return d.id;
+             }))
+             .force("charge", d3.forceManyBody())
+             .force("center", d3.forceCenter(width / 2, height / 2));
+
+         let data = escape2Html(json_data)
+
+         graph = $.parseJSON(data)
+
+         let link = g.append("g")
+             .attr("class", "links")
+             .selectAll("line")
+             .data(graph.links)
+             .enter().append("line")
+             .attr("stroke-width", width * 0.003);
 // function(d) { return Math.sqrt(d.value);
 
 
-       var node = svg.append("g")
-           .attr("class", "nodes")
-           .selectAll("g")
-           .data(graph.nodes)
-           .enter().append("g")
+         let node = g.append("g")
+             .attr("class", "nodes")
+             .selectAll("g")
+             .data(graph.nodes)
+             .enter().append("g")
 
-       var circles = node.append("circle")
-          .attr("r", 5)
-          .attr("fill", function (d) {
-              return color(d);
-          })
-          .call(d3.drag()
-              .on("start", dragstarted)
-              .on("drag", dragged)
-              .on("end", dragended));
+         let circles = node.append("circle")
+             .attr("r", 5)
+             .attr("fill", function (d) {
+                 return color(d.group);
+             })
+             .call(d3.drag()
+                 .on("start", dragstarted)
+                 .on("drag", dragged)
+                 .on("end", dragended));
 
-       var lables = node.append("text")
-          .text(function (d) {
-              return d.id;
-          })
-          .attr('x', 6)
-          .attr('y', 3);
+         let lables = node.append("text")
+             .text(function (d) {
+                 return d.id;
+             })
+             .attr('x', 6)
+             .attr('y', 3);
 
-       node.append("title")
-          .text(function (d) {
-              return d.id;
-          });
+         node.append("title")
+             .text(function (d) {
+                 return d.id;
+             });
 
-       simulation
-          .nodes(graph.nodes)
-          .on("tick", ticked);
+         simulation
+             .nodes(graph.nodes)
+             .on("tick", ticked);
 
-       simulation.force("link")
-          .links(graph.links);
+         simulation.force("link")
+             .links(graph.links);
 
-       function ticked() {
-           link
-               .attr("x1", function (d) {
-                   return d.source.x;
-               })
-               .attr("y1", function (d) {
-                   return d.source.y;
-               })
-               .attr("x2", function (d) {
-                   return d.target.x;
-               })
-               .attr("y2", function (d) {
-                   return d.target.y;
-               });
+         let zoom_handler = d3.zoom()
+            .on("zoom", zoom_actions);
+            zoom_handler(svg);
 
-           node
-               .attr("transform", function (d) {
-                   return "translate(" + d.x + "," + d.y + ")";
-               })
-       }
+         function ticked() {
+             link
+                 .attr("x1", function (d) {
+                     return d.source.x;
+                 })
+                 .attr("y1", function (d) {
+                     return d.source.y;
+                 })
+                 .attr("x2", function (d) {
+                     return d.target.x;
+                 })
+                 .attr("y2", function (d) {
+                     return d.target.y;
+                 });
+
+             node
+                 .attr("transform", function (d) {
+                     return "translate(" + d.x + "," + d.y + ")";
+                 })
+         }
 
 
-       function dragstarted(d) {
-           if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-           d.fx = d.x;
-           d.fy = d.y;
-       }
+         function dragstarted(d) {
+             if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+             d.fx = d.x;
+             d.fy = d.y;
+         }
 
-       function dragged(d) {
-           d.fx = d3.event.x;
-           d.fy = d3.event.y;
-       }
+         function dragged(d) {
+             d.fx = d3.event.x;
+             d.fy = d3.event.y;
+         }
 
-       function dragended(d) {
-           if (!d3.event.active) simulation.alphaTarget(0);
-           d.fx = null;
-           d.fy = null;
-       }
+         function dragended(d) {
+             if (!d3.event.active) simulation.alphaTarget(0);
+             d.fx = null;
+             d.fy = null;
+         }
+
+         function zoom_actions(){
+             g.attr("transform", d3.event.transform)
+            }
+
+     }
+
+       drawd3("{{ graph }}");
 
     </script>
-
 
 
 

@@ -7,5 +7,5 @@ from project import views
 urlpatterns = [
     path('', views.index),
     path("type/",  views.changeChart),
-
+    path("graph/",  views.changed3),
 ]
