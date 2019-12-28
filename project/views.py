@@ -1,3 +1,6 @@
+import math
+import random
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -14,7 +17,7 @@ from django.views.generic import CreateView
 from scipy.spatial import distance
 from sklearn.manifold import MDS
 
-from .models import Datainfo, SubData
+from .models import Datainfo, SubData,GraphInfo
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.offline import plot
@@ -29,14 +32,20 @@ import time
 
 def index(request):
     files=os.listdir("./project/files")
-    # files.remove(".DS_Store")
+    files.remove(".DS_Store")
     files.sort()
-    filename = request.GET.get('fn', "soc-sign-bitcoinalpha.csv")
-    data=readfile("./project/files/" + filename)
+    filename = request.GET.get('fn')
+    if filename is None:
+        filename="soc-sign-bitcoinalpha.csv"
+        path="pages/index.html"
+    else:
+        path = "pages/document.html"
+    # filename = request.GET.get('fn', "sx-superuser.txt")
+    data=readfile(filename)
     details = preprocess(data)
     data_info = []
     infos=readwholedata()
-    id=14
+    id=0
     for inx,item in enumerate(files):
         if(item==""+filename):
             id=inx
@@ -48,7 +57,7 @@ def index(request):
         details.append("-10 to +10")
         details.append("89%")
     graph_type= request.GET.get('tg', 'A')
-    for index, row in data.head(10).iterrows():
+    for index, row in data.head(5).iterrows():
         temp = []
         for item in row:
             temp.append(item)
@@ -65,9 +74,12 @@ def index(request):
     df = createdf(data, unixts)
     communities=calolcpm(df,3,mini)
     graph = dftojson(df, mini,communities)
-    heatmap,dataspace=apollo(unixts,df)
-
-    context={"data_info":data_info,
+    dataspace = info.pop(-1)
+    heatmap=info.pop(-1)
+    # heatmap,dataspace=apollo(unixts,df)
+    heatmap_whole,dataspace_whole=return_datasetsimilarities()
+    context={
+            "data_info":data_info,
              "filename":filename,
              "details":details,
              "type":graph_type,
@@ -78,9 +90,21 @@ def index(request):
              "time":time_range,
              "community":communities,
              "heatmap":heatmap,
-             "dataspace":dataspace
+             "dataspace":dataspace,
+             "wholeheatmap": heatmap_whole,
+             "wholedataspace": dataspace_whole,
              }
-    return render(request, 'pages/index.html', context)
+    path="pages/index1.html"
+    return render(request,path , context)
+
+
+def return_datasetsimilarities(id=1):
+    data = get_object_or_404(GraphInfo, pk=id)
+    temp=[]
+    temp.append(data.return_heatmap())
+    temp.append(data.return_dataspace())
+    return temp
+
 
 
 def createunixts(data):
@@ -97,10 +121,10 @@ def createdf(data,unixts):
 
 def readfile(filename):
     if(filename[-3:]=='csv'):
-        data=pd.read_csv(filename)
+        data=pd.read_csv("./project/files/" +filename)
     #txt
     else:
-        data = pd.read_csv(filename,sep=" ")
+        data = pd.read_csv("./project/files/" +filename,sep=" ")
     return data
 
 
@@ -172,6 +196,8 @@ def readspecificdata(id):
     temp.append(item.return_timespan())
     temp.append(super.return_type())
     temp.append(super.return_description())
+    temp.append(item.return_heatmap())
+    temp.append(item.return_dataspace())
     return temp
 
 
@@ -258,22 +284,16 @@ def generateImg(df,type,fn,fr,to):
     layout_title_text=""+fn[:-4]
     )
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    print(plot_div)
     return plot_div
 
-def calolcpm(df,k,duration):
-    g = nx.Graph()
-    g.clear()
-    events = []
-    for index, row in df[duration].iloc[:500].iterrows():
-        events.append((row['SRC'], row['DST'], '+'))
-    return olcpm(k, g, events)
 
 def changeChart(request):
     tg = request.GET.get("tg", None)
     fn = request.GET.get("fn", None)
     fr=request.GET.get('from',None)
     to=request.GET.get('to',None)
-    data = readfile("./project/files/" + fn)
+    data = readfile(fn)
     df=createunixts(data)
     result=generateImg(df,tg,fn,fr,to)
     data = {
@@ -303,7 +323,7 @@ def changed3(request):
         duration=year+"-"+month
     else:
         duration = year
-    data = readfile("./project/files/" + fn)
+    data = readfile(fn)
     unixts=createunixts(data)
     df=createdf(data,unixts)
     temp=calolcpm(df,k,duration)
@@ -367,7 +387,25 @@ def js_distance(p, q):
         q=pd.concat([q,r])
     return distance.jensenshannon(p['count'],q['count'])
 
-def draw_headmap(times,df):
+
+
+def bhattacharyya(p, q):
+    """ Bhattacharyya distance between distributions (lists of floats). """
+    p_len=len(p)
+    q_len=len(q)
+    if(p_len<q_len):
+        nums=[i+1 for i in range(p_len,q_len)]
+        r=pd.DataFrame(index=nums,data=0,columns=['count'],)
+        p=pd.concat([p,r])
+    elif(p_len>q_len):
+        nums=[i+1 for i in range(q_len,p_len)]
+        r=pd.DataFrame(index=nums,data=0,columns=['count'],)
+        q=pd.concat([q,r])
+    return sum((math.sqrt(u * w) for u, w in zip(p['count'], q['count'])))
+
+
+
+def degree_similarity(times,df,measure):
     heatmap=[]
     for row in times:
             heat=[]
@@ -376,12 +414,31 @@ def draw_headmap(times,df):
             for col in times:
                 col_=df[col]
                 dis2=degree_distribution(col_)
-                heat.append(js_distance(dis1,dis2))
+                if measure == 'js':
+                    score=1-js_distance(dis1,dis2)
+                if measure == 'bc':
+                    score=bhattacharyya(dis1,dis2)
+                heat.append(score)
+            heatmap.append(heat)
+    return heatmap
+
+def vertexcount(times,df):
+    heatmap=[]
+    for row in times:
+            heat=[]
+            row_=df[row].count()[0]
+            for col in times:
+                col_=df[col].count()[0]
+                if row_ < col_:
+                    heat.append(row_/col_)
+                else:
+                    heat.append(col_/row_)
             heatmap.append(heat)
     return heatmap
 
 
-def apollo(unixts,df):
+
+def apollo(unixts,df,measure):
     df_time = unixts.resample('M').sum().to_period('M')  # 按月度进行统计加和
     times = indextolist(df_time, h=False)
     empty = []
@@ -389,7 +446,10 @@ def apollo(unixts,df):
         if len(df[row]) <= 0:
             empty.append(row)
     times = [time for time in times if time not in empty]
-    heatmap=draw_headmap(times,df)
+    if measure=="vc":
+        heatmap = vertexcount(times, df)
+    else:
+        heatmap = degree_similarity(times, df,measure)
     fig1 = go.Figure(data=go.Heatmap(
         z=heatmap,
         x=times,
@@ -403,12 +463,102 @@ def apollo(unixts,df):
     dataspace['category']=dataspace['text'].apply(lambda x: x[:4])
 
     fig2 = px.scatter_3d(dataspace, x='x', y='y', z='z',text='text',
-                         color='category'
+             color='category',color_discrete_sequence=px.colors.qualitative.Set3
                        )
 
     plot_div1 = plot(fig1, output_type='div', include_plotlyjs=False)
     plot_div2 = plot(fig2, output_type='div', include_plotlyjs=False)
     return plot_div1,plot_div2
 
+def changed_apollo(request):
+    sm=request.GET.get("sm",None)
+    fn = request.GET.get("fn", None)
+    begin=request.GET.get('begin',None)
+    end=request.GET.get('end',None)
+    data = readfile(fn)
+    unixts=createunixts(data)
+    df=createdf(data,unixts)
+    g1,g2=apollo(unixts[begin:end],df[begin:end],sm)
+    data = {
+        'heatmap': g1,
+        'space':g2
+    }
+    return JsonResponse(data,encoder=NpEncoder)
+
+
+
+
+# def total_communities(id):
+#     item = get_object_or_404(SubData, pk=id)
+#     return item.return_communities()
+
+
+def calolcpm(df,k,duration):
+    g = nx.Graph()
+    g.clear()
+    events = []
+    for index, row in df[duration].iloc[:500].iterrows():
+        events.append((row['SRC'], row['DST'], '+'))
+    return olcpm(k, g, events)
+
+def model(p,months,df,s,g,operator):
+    p=p
+    length=len(months)
+    ceilval=math.ceil(length*p)
+    if ceilval < 10:
+        ceilval=10
+    t={}
+    indices=[]
+    for i in range(ceilval):
+        index=random.randint(0,length-1)
+        key,value=caloperator(df,months[index],g,operator)
+        t[key]=value
+        if index not in indices:
+            indices.append(index)
+#     print(indices)
+    for inx,month in enumerate(months):
+        counts=0
+        sum_wi=0
+        sum_value=0
+        if inx not in indices:
+            x=np.array(s)[inx]
+            for i in np.argsort(x)[::-1]:
+                if i in indices:
+                    m=months[i]
+                    if counts >=3:
+                        if operator == "d":
+                            t[month] = int(sum_value / sum_wi)
+                        if operator == "s":
+                            t[month]=sum_value/sum_wi
+                        indices.append(inx)
+                        break
+                    else:
+                        operator_value=t[m]
+#                         print(m,x[i],diameter)
+                        counts=counts+1
+                        sum_value=sum_value+x[i]*operator_value
+                        sum_wi=x[i]+sum_wi
+#             print("-----",indices)
+#     print(diameters)
+    return { k:t[k] for k in sorted(t.keys())}
+
+def caloperator(df, month, g, operator):
+    g.clear()
+    for index, row in df[month].iloc[:].iterrows():
+        g.add_edge(row['SRC'], row['DST'])
+    if nx.is_connected(g):
+        if operator == "d":
+            output = nx.diameter(g)
+        if operator == "s":
+            output = nx.average_shortest_path_length(g)
+    #             print("# Diameter:" + str(diameter))
+    else:
+        G = max(nx.connected_component_subgraphs(g), key=len)
+        if operator == "d":
+            output = nx.diameter(G)
+        if operator == "s":
+            output = nx.average_shortest_path_length(G)
+    #             print("# Diameter:" + str(diameter))
+    return month, output
 
 

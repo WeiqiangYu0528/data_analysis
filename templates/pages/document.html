@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Zinzer - Responsive Bootstrap 4 Admin Dashboard</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="ThemeDesign" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link rel="shortcut icon" href="../../static/images/favicon.ico">
+
+        <!-- morris css -->
+        <link rel="stylesheet" href="../../static/plugins/morris/morris.css">
+
+        <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/style.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    </head>
+
+
+    <body class="fixed-left">
+
+        <!-- Loader -->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- ========== Left Sidebar Start ========== -->
+                  {% include "pages/sidebar.html" %}
+            <!-- Left Sidebar End -->
+
+            <!-- Start right Content here -->
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+
+                    <!-- Top Bar Start -->
+                    {% include "pages/topbar.html" %}
+                    <!-- Top Bar End -->
+
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="page-title-box">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-8">
+                                                <h4 class="page-title m-0">Dashboard</h4>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="float-right d-none d-md-block">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="ti-settings mr-1"></i> Settings
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                                            <a class="dropdown-item" href="#">Action</a>
+                                                            <a class="dropdown-item" href="#">Another action</a>
+                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#">Separated link</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                        </div>
+                                        <!-- end row -->
+                                    </div>
+                                    <!-- end page-title-box -->
+                                </div>
+                            </div> 
+                            <!-- end page title -->
+
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-primary mini-stat text-white">
+                                        <div class="p-3 mini-stat-desc">
+                                            <div class="clearfix">
+                                                <h6 class="text-uppercase mt-0 float-left text-white-50">Orders</h6>
+                                                <h4 class="mb-3 mt-0 float-right">1,587</h4>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous period</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="float-right">
+                                                <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
+                                            </div>
+                                            <p class="font-14 m-0">Last : 1447</p>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-info mini-stat text-white">
+                                        <div class="p-3 mini-stat-desc">
+                                            <div class="clearfix">
+                                                <h6 class="text-uppercase mt-0 float-left text-white-50">Revenue</h6>
+                                                <h4 class="mb-3 mt-0 float-right">$46,785</h4>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From previous period</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="float-right">
+                                                <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
+                                            </div>
+                                            <p class="font-14 m-0">Last : $47,596</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-pink mini-stat text-white">
+                                        <div class="p-3 mini-stat-desc">
+                                            <div class="clearfix">
+                                                <h6 class="text-uppercase mt-0 float-left text-white-50">Average Price</h6>
+                                                <h4 class="mb-3 mt-0 float-right">15.9</h4>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="float-right">
+                                                <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
+                                            </div>
+                                            <p class="font-14 m-0">Last : 15.8</p>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card bg-success mini-stat text-white">
+                                        <div class="p-3 mini-stat-desc">
+                                            <div class="clearfix">
+                                                <h6 class="text-uppercase mt-0 float-left text-white-50">Product Sold</h6>
+                                                <h4 class="mb-3 mt-0 float-right">1890</h4>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="float-right">
+                                                <a href="#" class="text-white-50"><i class="mdi mdi-briefcase-check h5"></i></a>
+                                            </div>
+                                            <p class="font-14 m-0">Last : 1776</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <!-- end row -->
+            
+                            <div class="row">
+                                <div class="col-xl-9">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title">Data Distribution</h4>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+{#                                                    <div id="morris-line-example" class="morris-chart" style="height: 300px"></div>#}
+                                                    <div id="graph" >  {{fig|safe}}</div>
+                                                </div>
+{#                                                <div class="col-lg-4">#}
+{#                                                    <div>#}
+{#                                                        <h5 class="font-14 mb-5">Yearly Sales Report</h5>#}
+{#            #}
+{#                                                        <div>#}
+{#                                                            <h5 class="mb-3">2018 : $19523</h5>#}
+{#                                                            <p class="text-muted mb-4">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis atque quos dolores et</p>#}
+{#                                                            <a href="#" class="btn btn-primary btn-sm">Read more <i class="mdi mdi-chevron-right"></i></a>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title">Force-Directed Graph</h4>
+                                              <div id="newsvg">
+                                              <svg id="svg"></svg>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end row -->
+            
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">Heatmap</h4>
+                                            <div class="latest-massage">
+                                                 <div id="heatmap">  {{heatmap|safe}}</div>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+            
+                                </div>
+                                <!-- end col -->
+
+                                <div class="col-xl-8">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">Dataset Space</h4>
+                                            <div id="dataspace">  {{dataspace|safe}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+            
+                            <div class="row">
+                                <div class="col-xl-9">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">{{ filename }}</h4>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">ID No.</th>
+                                                            <th scope="col">SRC</th>
+                                                            <th scope="col">DST</th>
+                                                            {% ifequal filename|truncatechars:17  "soc-sign-bitcoin…" %}
+                                                             <th scope="col">RATING</th>
+                                                            {% endifequal %}
+                                                            <th scope="col">UNIXTS</th>
+{#                                                            <th scope="col">Amount</th>#}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                               {% for items in data_info %}
+                                                            <tr>
+                                                                <th scope="row">#{{ forloop.counter }}</th>
+                                                            {% for item in items  %}
+                                                              <td>{{ item }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                          {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">Document files</h4>
+                                            <table class="table table-striped mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><i class="far fa-file-pdf text-primary h2"></i></td>
+                                                        <td>
+                                                            <h6 class="mt-0">2015</h6>
+                                                            <p class="text-muted mb-0">dolor sit amet</p></td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary btn-sm">
+                                                                <i class="fas fa-download"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           <!-- end row -->
+
+                        </div><!-- container fluid -->
+
+                    </div> <!-- Page content Wrapper -->
+
+                </div> <!-- content -->
+
+                <footer class="footer">
+                    © 2019 Zinzer <span class="d-none d-md-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign.</span>
+                </footer>
+
+            </div>
+            <!-- End Right content here -->
+
+        </div>
+        <!-- END wrapper -->
+
+
+
+        <!-- jQuery  -->
+        <script src="../../static/js/jquery.min.js"></script>
+        <script src="../../static/js/bootstrap.bundle.min.js"></script>
+        <script src="../../static/js/modernizr.min.js"></script>
+        <script src="../../static/js/detect.js"></script>
+        <script src="../../static/js/fastclick.js"></script>
+        <script src="../../static/js/jquery.slimscroll.js"></script>
+        <script src="../../static/js/jquery.blockUI.js"></script>
+        <script src="../../static/js/waves.js"></script>
+        <script src="../../static/js/jquery.nicescroll.js"></script>
+        <script src="../../static/js/jquery.scrollTo.min.js"></script>
+
+        <!--Morris Chart-->
+        <script src="../../static/plugins/morris/morris.min.js"></script>
+        <script src="../../static/plugins/raphael/raphael.min.js"></script>
+
+        <!-- dashboard js -->
+        <script src="../../static/pages/dashboard.int.js"></script>        
+
+        <!-- App js -->
+        <script src="../../static/js/app.js"></script>
+
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+
+
+
+
+
+
+    </body>
+</html>

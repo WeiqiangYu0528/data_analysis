@@ -42,6 +42,9 @@ class SubData(models.Model):
         Temporal_Edges = models.IntegerField(default=0)
         Static_Edges = models.IntegerField(default=0)
         id=models.IntegerField(default=0, primary_key=True)
+        heatmap=models.TextField()
+        dataspace=models.TextField()
+        total_communities=models.TextField()
 
         def return_id(self):
             return self.id
@@ -63,6 +66,32 @@ class SubData(models.Model):
 
         def return_static_edges(self):
             return self.Static_Edges
+
+        def return_heatmap(self):
+                return self.heatmap
+
+        def return_dataspace(self):
+                return self.dataspace
+
+        def return_communities(self):
+            return self.total_communities
+
+
+class GraphInfo(models.Model):
+        id = models.IntegerField(default=0, primary_key=True)
+        heatmap = models.TextField()
+        dataspace = models.TextField()
+
+        def return_id(self):
+            return self.id
+
+        def return_heatmap(self):
+                return self.heatmap
+
+        def return_dataspace(self):
+                return self.dataspace
+
+
 
 
 

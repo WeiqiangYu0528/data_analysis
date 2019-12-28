@@ -6,6 +6,9 @@ from project import views
 
 urlpatterns = [
     path('', views.index),
+    path('index/', views.index),
     path("type/",  views.changeChart),
     path("graph/",  views.changed3),
+    path("apollo/", views.changed_apollo),
+
 ]
