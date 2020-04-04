@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'obr3f&fm)!kt(+kmew0t2apvgmf$0+z6hzoomo5j4(8qs0a!x0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -64,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'data_analysis.global.global_setting',
             ],
         },
     },
@@ -120,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = 'static' ## 新增行
+#记得加/static/ for DIRS
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )

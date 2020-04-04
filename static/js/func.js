@@ -3,7 +3,7 @@
      return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
     }
 
-     function drawd3(p1,p2) {
+     function drawd3(p1,p2,method) {
          d3.select("#force").selectAll("*").remove();
          d3.select("#force")
              .append("svg")
@@ -14,9 +14,11 @@
          let svg = d3.select("#svg"),
          width = +svg.attr("width"),
          height = +svg.attr("height");
-
          let color = d3.scaleOrdinal(d3.schemeCategory20);
-
+         if(method==='cs'){
+             color= d3.scaleOrdinal(["#bdbdbd","#636363"]);
+         }
+         let span=[]
          let g = svg.append("g")
         .attr("class", "everything");
 
@@ -41,7 +43,9 @@
              .data(links)
              .enter().append("line")
              .attr("stroke-width", '1.5')
-             .attr("stroke","lightsteelblue");
+             .attr("stroke", 'LightGray')
+              // .attr("stroke-opacity", 0.6)
+
 // function(d) { return Math.sqrt(d.value);
 
 
@@ -54,7 +58,11 @@
          let circles = node.append("circle")
              .attr("r", 5)
              .attr("fill", function (d) {
-                 return color(d.group);
+                 let temp=d.group
+                 if(!span.includes(temp)){
+                     span.push(temp)
+                 }
+                 return color(temp);
              })
              .call(d3.drag()
                  .on("start", dragstarted)
@@ -85,23 +93,31 @@
             zoom_handler(svg);
 
          let legend = svg.selectAll(".legend")
-            .data(color.domain())
+            // console.log(color.domain().length)
+            .data(span.sort(sortNumber))
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
+        legend.append("circle")
+            .attr("cx",8 )
+            .attr('cy',function(d,i){ return 30+i*10})
+            .attr("r", 8)
+            .style("fill", function (d) {return color(d)});
 
         legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
+            .attr("x", 25)
+            .attr("y", function(d,i){ return 30+i*10})
             .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) { return d; });
+            .style("text-anchor", "start")
+            .text(function(d) {
+                if(d===0){
+                    return "None"
+                }
+                if(d===-1){
+                    return "Overlap"
+                }
+                return "C"+d; });
 
          function ticked() {
              link
@@ -145,7 +161,14 @@
          function zoom_actions(){
              g.attr("transform", d3.event.transform)
             }
+
+         function sortNumber(a,b){//升序
+                return a - b
+            }
      }
+
+
+
 
 
 

@@ -200,6 +200,18 @@
 
 
   <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="dropdown" style="margin-right: 10px;">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton15" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Methods
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" value="louvain"  onclick="$('#dropdownMenuButton15').text('Louvain')">Louvain</button>
+            <button class="dropdown-item" value="olcpm"  onclick="$('#dropdownMenuButton15').text('OLCPM')">OLCPM</button>
+          </div>
+        </div>
+
+
            <div class="dropdown" style="margin-right: 10px;">
           <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -246,7 +258,7 @@
 
           <div id="result"></div>
 
-          <div id="olcpm">
+          <div id="coms">
           {% for com in community %}
           <p>{{ com }}</p>
           {% endfor %}
@@ -391,9 +403,11 @@
 
     <script>
      $("#g").click(function () {
-  let year=$("#dropdownMenuButton9").text();
-  let month=$("#dropdownMenuButton10").text();
-  let size=$("#dropdownMenuButton8").text();
+     let method=$("#dropdownMenuButton15").text();
+     console.log(method)
+      let year=$("#dropdownMenuButton9").text();
+      let month=$("#dropdownMenuButton10").text();
+      let size=$("#dropdownMenuButton8").text();
   if(year.length>4){
       year = {{ time.0 }}
   }
@@ -406,6 +420,7 @@
       $.ajax({
           url: '/graph/',
           data: {
+              "method":method,
               'k': size,
               'fn': "{{filename}}",
               'year': year,
@@ -415,9 +430,9 @@
           dataType: 'json',
           success: function (data) {
               if (data) {
-                  $("#olcpm").html(data.olcpm)
+                  $("#coms").html(data.coms)
               }
-              drawd3(""+data.d3js)
+              drawd3(""+data.nodes,""+data.links)
           }
       });
 });
@@ -431,7 +446,7 @@
      return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
     }
 
-     function drawd3(json_data) {
+     function drawd3(p1,p2) {
          d3.select("#svg").remove();
          d3.select("#newsvg")
              .append("svg")
@@ -453,26 +468,30 @@
              .force("link", d3.forceLink().id(function (d) {
                  return d.id;
              }))
-             .force("charge", d3.forceManyBody())
+             .force("charge", d3.forceManyBody().strength(-50))
+             .force("collide", d3.forceCollide(10).strength(0.9))
              .force("center", d3.forceCenter(width / 2, height / 2));
 
-         let data = escape2Html(json_data)
+         {#let data = escape2Html(json_data)#}
+            let part1 = escape2Html(p1)
+            let part2 = escape2Html(p2)
 
-         graph = $.parseJSON(data)
+         nodes = $.parseJSON(part1)
+         links = $.parseJSON(part2)
 
          let link = g.append("g")
              .attr("class", "links")
              .selectAll("line")
-             .data(graph.links)
+             .data(links)
              .enter().append("line")
-             .attr("stroke-width", width * 0.003);
+             .attr("stroke-width", "3")
 // function(d) { return Math.sqrt(d.value);
 
 
          let node = g.append("g")
              .attr("class", "nodes")
              .selectAll("g")
-             .data(graph.nodes)
+             .data(nodes)
              .enter().append("g")
 
          let circles = node.append("circle")
@@ -498,11 +517,11 @@
              });
 
          simulation
-             .nodes(graph.nodes)
+             .nodes(nodes)
              .on("tick", ticked);
 
          simulation.force("link")
-             .links(graph.links);
+             .links(links);
 
          let zoom_handler = d3.zoom()
             .on("zoom", zoom_actions);
@@ -553,7 +572,7 @@
 
      }
 
-       drawd3("{{ graph }}");
+       drawd3("{{ nodes }}","{{ links }}");
 
     </script>
 

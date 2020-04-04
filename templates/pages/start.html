@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+     <link href="../../static/css/icons.css" rel="stylesheet" type="text/css">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="../../static/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../static/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../static/css/style1.min.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../static/css/doc.css">
+
+    
+</head> 
+
+<body class="body-blue">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container" style="left: -100px">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="../../index">
+                            <span aria-hidden="true" style="color:white" class="mdi mdi-file-document-box-multiple-outline"></span>
+                            <span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+
+                </div><!--//branding-->
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../index" style="font-weight: 600">HOME</a></li>
+                </ol>
+
+
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container" style="margin:auto 50px;max-width: 100%;width:1300px">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title" style="margin-left: -20px;font-weight: 400">Temporal Graph Management System</h1>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                             <section id="main-section" class="doc-section">
+                                <h2 class="section-title">Main Feature</h2>
+                                 <div class="section-block">
+                                   <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <h4>Temporal Network Information</h4>
+                                            <ul class="list">
+        										<li>Network Metadata</li>
+        										<li>Network Statistics Data</li>
+        										<li>Network Data Preview</li>
+        									</ul>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <h4>A variety of visualization components</h4>
+                                                <ul class="list">
+        										<li>Data Distribution Map</li>
+                                                <li>Force-direceted Graph</li>
+                                                <li>Heatmap, Dataset Space and Graph Operator Prediction</li>
+        										<li>Total Community Graph</li>
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+                                       <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <h4>Community Structure</h4>
+                                            <ul class="list">
+        										<li>Local Community Detection: OLCPM</li>
+        										<li>Global Community Detection: Louvain</li>
+        										<li>Community Search</li>
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+                                 </div>
+                            </section><!--//doc-section-->
+                           <section id="app-section" class="doc-section">
+                                <h2 class="section-title">Application Structure</h2>
+                                <div class="section-block">
+                                    <h4>Web Framework</h4>
+                                    <p>The web framework of the temporal graph management system is Django. Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Besides, Django also supports SQLites3 as the database by default. </p>
+                                    <h4>Website Introduction</h4>
+                                    <p>In this system, there are multiple pages to display the dynamic temporal network information. On the index page, people could see the general information of the datasets, like network types and network statistics data. Besides, the index page also contains the heat map and dataset space, which indicate the similarities between the datasets. What’s more, users could have access to the original data files by downloading them from the website.</p>
+                                    <p>On the data presentation page, users could see the details of each specific dataset. Furthermore, this page also includes several visualization components, such as force-directed graph, so that users are able to explore and understand the properties of the graph easily. </p>
+                                    <h4>Deployment</h4>
+                                    <p>The project is deployed on Linux by utilizing Apache2 and Virtualenv</p>
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="installation-section" class="doc-section">
+                                <h2 class="section-title" id="file-structure">File Structure</h2>
+									<!-- Fragment Identifier -->
+									<!-- End of Fragment Identifier -->
+								<h4 class="category-description"></h4>
+                                <p>All the datasets are from <a href="https://snap.stanford.edu/data/index.html#temporal"><u>SNAP</u></a>. Stanford Network Analysis Platform (SNAP) is a general purpose network analysis and graph mining library.
+                                It contains a great many of large network datasets, including temporal networks. SNAP not only provides users the origin data file but also supplies some dataset statistics information. For more information, you can visit
+                                    <a href="https://snap.stanford.edu/data/index.html#temporal">SNAP</a> to get access to the original data.</p>
+							<!-- File Tree -->
+							<div class="file-tree" id="dataset">
+								<div class="file-tree-title"> Dataset Files Hierarchy
+                                    <ul class="file-tree-buttons">
+										<li id="js-expand">
+											<i class="fa fa-plus"></i> Expand all</li>
+										<li id="js-collapse">
+											<i class="fa fa-minus"></i> Collapse all</li>
+									</ul>
+								</div>
+								<ul class="file-tree-list js-file-tree" data-expanded="">
+									<li><i class="mdi mdi-folder-outline"></i> CollegeMsg -
+										<span class="file-tree-description">College messaging temporal network</span>
+									</li>
+									<li><i class="mdi mdi-folder-outline"></i> email-Eu-core-temporal -
+										<span class="file-tree-description">All e-mails between members of the institution</span>
+                                                <ul class="expand">
+											<li><i class="mdi mdi-file-outline"></i> email-Eu-core-temporal-Dept1 -
+												<span class="file-tree-description">All e-mails between members of Department 1 at the institution</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> email-Eu-core-temporal-Dept2 -
+												<span class="file-tree-description">All e-mails between members of Department 2 at the institution</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> email-Eu-core-temporal-Dept3 -
+												<span class="file-tree-description">All e-mails between members of Department 3 at the institution</span>
+											</li>
+                                            <li><i class="mdi mdi-file-outline"></i> email-Eu-core-temporal-Dept4 -
+												<span class="file-tree-description">All e-mails between members of Department 4 at the institution</span>
+											</li>
+										</ul>
+									</li>
+									<li><i class="mdi mdi-folder-outline"></i> soc-sign-bitcoinalpha -
+										<span class="file-tree-description">Weighted Signed Directed Bitcoin Alpha web of trust network</span>
+									</li>
+                                    <li><i class="mdi mdi-folder-outline"></i> soc-sign-bitcoinotc -
+										<span class="file-tree-description">Weighted Signed Directed Bitcoin OTC web of trust network</span>
+									</li>
+                                    <li><i class="mdi mdi-folder-outline"></i> sx-askubuntu -
+										<span class="file-tree-description">Comments, questions, and answers on Ask Ubuntu</span>
+                                              <ul class="expand">
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-a2q -
+												<span class="file-tree-description">Answers to questions</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2a -
+												<span class="file-tree-description">Comments to answers</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2q -
+												<span class="file-tree-description">Comments to questions</span>
+											</li>
+										</ul>
+									</li>
+                                    <li><i class="mdi mdi-folder-outline"></i> sx-mathoverflow -
+										<span class="file-tree-description">Comments, questions, and answers on Math Overflow</span>
+                                                  <ul class="expand">
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-a2q -
+												<span class="file-tree-description">Answers to questions</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2a -
+												<span class="file-tree-description">Comments to answers</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2q -
+												<span class="file-tree-description">Comments to questions</span>
+											</li>
+										</ul>
+									</li>
+                                    <li><i class="mdi mdi-folder-outline"></i> sx-superuser -
+										<span class="file-tree-description">Comments, questions, and answers on Super User</span>
+                                                  <ul class="expand">
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-a2q -
+												<span class="file-tree-description">Answers to questions</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2a -
+												<span class="file-tree-description">Comments to answers</span>
+											</li>
+											<li><i class="mdi mdi-file-outline"></i> sx-askubuntu-c2q -
+												<span class="file-tree-description">Comments to questions</span>
+											</li>
+										</ul>
+									</li>
+								</ul>
+                                  <div class="section-block" id="download">
+                                    <h3>Download</h3>
+                                    <p>Download the zip file of all the datasets</p>
+                                     <a class="button blue stroke rounded" href="/zipdownload/" style="font-weight: 400;">Download ZIP</a>
+                                </div><!--//section-block-->
+							</div>
+                            </section><!--//doc-section-->
+
+                            <section id="code-section" class="doc-section">
+                                <h2 class="section-title">Visualization</h2>
+                                <div class="section-block" style="padding-bottom: 0">
+                                    <p>Our system contains multiple visualization components. Hence, users could interact with the system freely, have an intuitive sense of network architecture and explore the properties of community structure</p>
+                                </div><!--//section-block-->
+                                <div id="html" class="section-block" style="padding-top: 0">
+                                <div id="ddm" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Data Distribution Map</h4>
+                                        <img src="../../static/images/WechatIMG1.png" alt="Data Distribution Map" style="width:100%">
+                                        <p>Data distribution map allows users to observe the distribution of data in different time span.</p>
+                                        <p>In each specific dataset, users could choose different time intervals and time granularities, including month, quarter and year. Then the system will generate the corresponding data distribution map</p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="fdg" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Force-directed Graph</h4>
+                                        <img src="../../static/images/WechatIMG2.png" alt="Force-directe Graph" style="width:100%">
+                                        <p>A force-directed diagram often exposes the inherent symmetric and clustered structure of a graph and shows a well-balanced distribution of nodes with few edge crossings.</p>
+                                        <p>Users can choose local or global community detection method, then the website will display the calculated communities.
+                                            With different communities, I adopted different color points to represent them in the graph, which is very convenient for people to recognize.
+                                        </p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="hm" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Heatmap</h4>
+                                 <img src="../../static/images/WechatIMG3.png" alt="Heat Map" style="width:100%">
+                                        <p>The similarity matrix can be visualized as a heat map. The heatmap are sorted based on the distances from a given dataset.</p>
+                                        <p>User should first choose the similarity matrix, including Bhattacharyya coeﬃcient, Jensen–Shannon divergence and Vertex count.
+                                            Furthermore, users are also able to combine similarity measures. For example, we can compare two graphs based on their degree distributions but also take under account their graph size.
+                                            Afterwards, users should choose the time interval they want, and then the system will create the heat map accordingly
+                                        </p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="ds" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Dataset Space</h4>
+                                        <img src="../../static/images/WechatIMG4.png" alt="Dataset Space" style="width:100%">
+                                         <p>The dataset space will be generated along with the heat map</p>
+                                        <p>Each dataset is projected to a point in a low-dimensional metric space that preserves the dataset similarities in the form of distances between the respective points</p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="gop" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Graph Operator Prediction</h4>
+                                         <img src="../../static/images/WechatIMG5.png" alt="Graph Operator Prediction" style="width:100%">
+                                        <p>Predict graph operator output over multiple graphs based on the calculated similarity matrix </p>
+                                        <p>Users should first select the graph operator they want to predict. Next, they shall choose the prediction ratio of samples.
+                                            The system will calculate the actual value of graph operator for these samples, then estimate graph operators for the remaining graphs by running a weighted version of the k-Nearest-Neighbors (kNN) algorithm. </p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="tc" class="section-block">
+                                    <div class="code-block">
+                                        <h4>Total Community Graph</h4>
+                                         <img src="../../static/images/WechatIMG6.png" alt="Total Community Graph" style="width:100%">
+                                        <p>Total Community graph depicts the number of total communities in different times</p>
+                                        <p></p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="community-section" class="doc-section">
+                                <h2 class="section-title">Community Structure</h2>
+                                <div class="section-block">
+                                    <h3>Community Detection</h3>
+                                    <p>Community detection aims to identify highly connected groups of individuals or objects inside networks, these groups are called communities.</p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <h4>Global Community Detection</h4>
+                                            <ul class="list">
+        										<li>Focus on the concepts of subgroup cohesiveness and mutuality
+                                                	<ul>
+        												<li>k-cliques</li>
+        												<li>k-cores</li>
+        											</ul>
+                                                </li>
+        										<li>The internal and external vertex and subgraph degrees can also be used to deﬁne community.</li>
+        									</ul>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <h4>Local Community Detection</h4>
+                                                <ul class="list">
+        										<li>Seen as a property of the whole network</li>
+                                                <li>One global community structure is based on the widely used concept of modularity</li>
+        										<li>Another wide class of global community deﬁnitions relies on some similarity measure between network vertices</li>
+        									</ul>
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+
+                                <div class="section-block" id="lcd">
+                                    <div class="callout-block">
+                                        <div class="icon-holder">
+                                            <i class="mdi mdi-alpha-l-circle-outline"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h3 class="callout-title">Louvain Algorithm</h3>
+                                            <p>Louvain algorithm is a method to extract communities from large networks. It generally has two steps:</p>
+                                             <div id="step1"  class="section-block">
+                                                <h4 class="block-title">Step One</h4>
+                                                <p> At the beginning, each node is regarded as a community, and the weight of edges in the community is 0. For each node, the algorithm traverses all the neighbor nodes and measures the modularity gain by adding the node to their communities. It then places the node into the community that resulted in the greatest modularity increase. This process is repeated until the communities do not change.  </p>
+                                            </div><!--//section-block-->
+                                            <div id="step2"  class="section-block">
+                                                <h4 class="block-title">Step Two</h4>
+                                                <p>        In the second phase of the algorithm, it first groups all of the nodes in the same community and builds a new network. Next, it calculates the weight of the edges between these newly generated communities and between all nodes within the communities. Then it goes to the step one for the next round.</p>
+                                            </div><!--//section-block-->
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+
+                                    <div class="callout-block" id="ocd">
+                                        <div class="icon-holder">
+                                            <i class="mdi mdi-alpha-o-circle-outline"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h3 class="callout-title">OLCPM</h3>
+                                            <p>Online Label propagation CPM is a local community detection method. </p>
+                                            <div id="step1"  class="section-block">
+                                                <h4 class="block-title">Step One</h4>
+                                                <p>It first implements OCPM, Online Clique Percolation Method, which takes two inputs: networks modification events and the clique size K. It returns all maximal cliques of size not less than k. </p>
+                                            </div><!--//section-block-->
+                                            <div id="step2"  class="section-block">
+                                                <h4 class="block-title">Step Two</h4>
+                                                <p>The second step is label propagation, which sets out on the output communities of OCPM to discover the peripheral nodes. Each community spreads to neighboring peripheral nodes a label containing its identity and a weight representing the distance between this node and the community. When all labels have been shared, nodes belong to the communities with which they have the shortest distance. If the distances between the node and communities are the same, then the node belong to all of the communities.</p>
+                                            </div><!--//section-block-->
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div>
+                                  <div class="section-block" id="cs">
+                                    <h3>Community Search</h3>
+                                    <p>Community Search aims to provide efficient solutions for searching high-quality communities from large networks in real-time. Specifically, given a vertex q of a graph G, it aims to find a community, which contains q and satisfies the properties of connectivity and cohesiveness.</p>
+                                    <div class="callout-block" >
+                                        <div class="icon-holder">
+                                            <i class="mdi mdi-alpha-k-circle-outline"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h3 class="callout-title">K-Core-Based Community Search</h3>
+                                            <p style="margin-bottom: 0;">Community search with threshold constraint(CST):</p>
+                                            <p style="margin-bottom: 0;">For a given graph G(V, E), a query vertex q ∈ V , and a constant k, ﬁnd H ⊆ V such that</p>
+                                            <ol>
+                                                <li>q ∈ H</li>
+                                                <li>G[H] is a connected graph</li>
+                                                <li>min{ degG[H](v) | v∈V(H) } ≥ k</li>
+                                            </ol>
+                                             <div id="step1"  class="section-block">
+                                                <h4 class="block-title">Step One</h4>
+                                                <p>Determine whether the graph G contains the solution of the CST (k) of the vertex q</p>
+                                            </div><!--//section-block-->
+                                            <div id="step2"  class="section-block">
+                                                <h4 class="block-title">Step Two</h4>
+                                                <p>Explore from the vicinity of the query vertex, and generate a candidate set C, which may contain a solution to the problem </p>
+                                            </div><!--//section-block-->
+                                             <div id="step3"  class="section-block">
+                                                <h4 class="block-title">Step Three</h4>
+                                                 <p>If the previous method fails to find a solution, a global search is performed on the k-cores of G[C] to find the solution.</p>
+                                             </div><!--//section-block-->
+                                       </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div>
+                            </section><!--//doc-section-->
+                            <section id="parameter-section" class="doc-section">
+                                <h2 class="section-title">Method Parameters</h2>
+                                <div class="section-block">
+                                    <p>This section describes the method properties. It helps users to have a better understanding of the system functions. </p>
+                                </div>
+                                <div class="section-block">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20%">Function</th>
+                                                    <th style="width:18%">Property</th>
+                                                    <th style="width:20%">Default Value</th>
+                                                    <th >Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 <tr>
+                                                    <th scope="row">Data Distribution</th>
+                                                    <td>From</td>
+                                                    <td>The minimum year</td>
+                                                    <td>The beginning of the time interval</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row">Data Distribution</th>
+                                                    <td>To</td>
+                                                    <td>The maximum year</td>
+                                                    <td>The end of the time interval</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">Data Distribution</th>
+                                                    <td>Granularity</td>
+                                                    <td>Annual</td>
+                                                    <td>Divide the dataset by the selected granularity</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Community Detection</th>
+                                                    <td>Method</td>
+                                                    <td>Louvain</td>
+                                                    <td>Community Detection Algorithm</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">Community Detection</th>
+                                                    <td>Date</td>
+                                                    <td>The minimum date</td>
+                                                    <td>The time interval of the dataset</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">OLCPM</th>
+                                                    <td>K</td>
+                                                    <td>3</td>
+                                                    <td>The size of the clique</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Community Search</th>
+                                                    <td>K</td>
+                                                    <td>3</td>
+                                                    <td>The size of the core</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">Community Search</th>
+                                                    <td>Query Node</td>
+                                                    <td>9</td>
+                                                    <td>The node that is used to query in the graph</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Heatmap</th>
+                                                    <td>Similarity Measure</td>
+                                                    <td>BC coefficient</td>
+                                                    <td>Methods to measure the similarity among graphs</td>
+                                                </tr>
+                                                  <tr>
+                                                    <th scope="row">Heatmap</th>
+                                                    <td>Date</td>
+                                                    <td>The minimum year</td>
+                                                    <td>The time interval of the dataset</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">Combine Similarities</th>
+                                                    <td>ratio</td>
+                                                    <td>0.5</td>
+                                                    <td>The ratio of similarity measure 1</td>
+                                                </tr>
+                                              <tr>
+                                                    <th scope="row">Prediction</th>
+                                                    <td>Graph Operator</td>
+                                                    <td>Diameter</td>
+                                                    <td>Graph analytics operators, like network statistics</td>
+                                                </tr>
+                                                 <tr>
+                                                    <th scope="row">Prediction</th>
+                                                    <td>Ratio</td>
+                                                    <td>0.2</td>
+                                                    <td>The ratio of randomly selected graphs of dataset</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+
+                            <section id="icons-section" class="doc-section">
+                                <h2 class="section-title">Upload</h2>
+                                <div class="section-block">
+                                    <p>Users are capble of uploading their own dataset files in our system.</p>
+                                    <ul>
+                                    <li>First, users should fill in the required information for their dataset. For unknown information, just leave it blank</li>
+                                    <li>Secondly, users should select their dataset file</li>
+                                    <li>Then, our system will process the file you submitted.</li>
+                                    </ul>
+                                    <h3>Dataset File Format</h3>
+                                    <p>The dataset file should at least contain three columns: SRC, DST and UNIXTS</p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                         <img src="../../static/images/WechatIMG7.png" alt="Sample" style="height: 300px">
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                         <ul>
+                                        <li>SRC: id of the source node</li>
+                                        <li>TGT: id of the target node</li>
+                                        <li>UNIXTS: Unix timestamp</li>
+                                        </ul>
+                                        </div>
+                                    </div>
+                                    <p>You can only upload a dataset file at a time</p>
+                                    <p>It may take a while to process the data file you uploaded. If the dataset file is uploaded successfully, you can go to extra datasets, and find the dataset you just uploaded.</p>
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                    <a class="nav-link scrollto" href="#main-section">Main Feature</a>
+                                    <a class="nav-link scrollto" href="#app-section">Application Structure</a>
+	                                <a class="nav-link scrollto" href="#installation-section">File Structure</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#dataset">Dataset Files Hierarchy</a>
+                                        <a class="nav-link scrollto" href="#download">Download</a>
+                                    </nav><!--//nav-->
+	                                <a class="nav-link scrollto" href="#code-section">Visualization</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#ddm">Data Distribution</a>
+                                        <a class="nav-link scrollto" href="#fdg">Force-directed Graph</a>
+                                        <a class="nav-link scrollto" href="#hm">Heat map</a>
+                                        <a class="nav-link scrollto" href="#ds">Dataset Space</a>
+                                        <a class="nav-link scrollto" href="#gop">Graph Operator Prediction</a>
+                                        <a class="nav-link scrollto" href="#tc">Total Community</a>
+                                    </nav><!--//nav-->
+	                                <a class="nav-link scrollto" href="#community-section">Community Structure</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#lcd">Louvain Community Detection</a>
+                                        <a class="nav-link scrollto" href="#ocd">OLCPM Community Detection</a>
+                                        <a class="nav-link scrollto" href="#cs">Community Search</a>
+                                    </nav><!--//nav-->
+	                                <a class="nav-link scrollto" href="#parameter-section">Method Properties</a>
+	                                <a class="nav-link scrollto" href="#icons-section">Upload</a>
+	                            </nav><!--//doc-menu-->
+
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+
+
+    </div><!--//page-wrapper-->
+
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../static/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="../../static/plugins/stickyfill/dist/stickyfill.min.js"></script>
+    <script type="text/javascript" src="../../static/js/doc.js"></script>
+    <script>
+       $('.expand').hide()
+       $('#js-expand').click(()=>{
+           $('.expand').show()
+       })
+       $('#js-collapse').click(()=>{
+           $('.expand').hide()
+       })
+    </script>
+
+    
+</body>
+</html> 
+

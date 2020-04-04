@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Upload</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="ThemeDesign" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Dropzone css -->
+        <link href="../../static/plugins/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet" type="text/css">
+
+        <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/style.css" rel="stylesheet" type="text/css">
+
+    </head>
+
+
+    <body class="fixed-left">
+
+        <!-- Loader -->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- ========== Left Sidebar Start ========== -->
+          {% include "pages/sidebar.html" %}
+            <!-- Left Sidebar End -->
+
+            <!-- Start right Content here -->
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+
+                    <!-- Top Bar Start -->
+                {% include "pages/topbar.html" %}
+                    <!-- Top Bar End -->
+
+                    <div class="page-content-wrapper " style="position: relative;top: 25px;">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title">Dataset Infomation</h4>
+                                            <p class="text-muted m-b-30 font-14">Please fill in all the following <code
+                                                    class="highlighter-rouge">information</code>. If you don't know the exact data, then leave it <code class="highlighter-rouge">blank</code>.</p>
+
+{#                                            <form action="/upload/" class="dropzone" method="post" id="up" style="border: 0">#}
+
+                                                <div class="form-group row">
+                                                <label for="example-password-input" class="col-sm-2 col-form-label">Type</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text"  id="upload-type" name="dtype">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-search-input" class="col-sm-2 col-form-label">Number of Nodes</label>
+                                                <div class="col-sm-10">
+                                                     <input class="form-control" type="number" id="upload-node" name="node" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-email-input" class="col-sm-2 col-form-label">Temporal Edges</label>
+                                                <div class="col-sm-10">
+                                                 <input class="form-control" type="number" id="upload-tedge" name="tedge" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-url-input" class="col-sm-2 col-form-label">Edges in static graph</label>
+                                                <div class="col-sm-10">
+                                                   <input class="form-control" type="number" id="upload-sedge" name="sedge" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-tel-input" class="col-sm-2 col-form-label">Time span</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="text"  id="upload-tspan" name="tspan">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="example-number-input" class="col-sm-2 col-form-label">Description</label>
+                                                <div class="col-sm-10">
+                                                  <input class="form-control" type="text"  id="upload-des" name="des" >
+                                                </div>
+                                            </div>
+
+                                             <div class="col-sm-12">
+                                                <div class="page-title-box">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-8">
+                                                            <h4 class="page-title m-0">Upload Dataset</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <p class="text-muted m-b-30 font-14">The dataset file should conform to the <code
+                                                    class="highlighter-rouge">format</code>, otherwise the file would fail to upload to the system.</p>
+
+
+                                            <form action="/upload/" class="dropzone" method="POST" id="drop">
+                                              <div class="fallback">
+                                                <input name="file" type="file" />
+                                              </div>
+                                            </form>
+
+                                           <div class="text-center m-t-15">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light" id="upload">Send File</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div> <!-- end row -->
+
+                        </div><!-- container fluid -->
+
+                    </div> <!-- Page content Wrapper -->
+
+                </div> <!-- content -->
+
+{#                <footer class="footer">#}
+{#                    © 2019 Zinzer <span class="d-none d-md-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign.</span>#}
+{#                </footer>#}
+
+            </div>
+            <!-- End Right content here -->
+
+        </div>
+        <!-- END wrapper -->
+
+
+                <!-- jQuery  -->
+        <script src="../../static/js/jquery.min.js"></script>
+        <script src="../../static/js/bootstrap.bundle.min.js"></script>
+        <script src="../../static/js/modernizr.min.js"></script>
+        <script src="../../static/js/detect.js"></script>
+        <script src="../../static/js/fastclick.js"></script>
+        <script src="../../static/js/jquery.slimscroll.js"></script>
+        <script src="../../static/js/jquery.blockUI.js"></script>
+        <script src="../../static/js/waves.js"></script>
+        <script src="../../static/js/jquery.nicescroll.js"></script>
+        <script src="../../static/js/jquery.scrollTo.min.js"></script>
+
+
+        <!-- Dropzone js -->
+        <script src="../../static/plugins/dropzone-5.7.0/dist/dropzone.js"></script>
+
+            <script>
+    Dropzone.options.drop = {
+    autoProcessQueue: false,
+    dictDefaultMessage: 'Drop file here or click to upload',
+    maxFiles:1,
+    acceptedFiles:".txt,.csv",
+    addRemoveLinks : true,
+    timeout: null,
+    init: function () {
+        let myDropzone = this;
+        $('#upload').on("click", function() {
+            myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+        });
+        let node=$('#upload-node').val()
+        let tedge=$('#upload-tedge').val()
+        let sedge=$('#upload-sedge').val()
+        if(node===""){
+            node=0
+        }
+        if(tedge===""){
+            tedge=0
+        }
+        if(sedge===""){
+            sedge=0
+        }
+        this.on("sending", function(file, xhr, formData) {
+                  formData.append("dname", file.name);
+                  formData.append("dtype", $('#upload-type').val());
+                  formData.append("node", node);
+                  formData.append("tedge", tedge);
+                  formData.append("sedge", sedge);
+                  formData.append("tspan", $('#upload-tspan').val());
+                  formData.append("des", $('#upload-des').val());
+                });
+        this.on('success',function(file,response){
+            console.log(file.name)
+            console.log(response.id)
+            console.log(response)
+            $("#dataset").append('<li class="nav-item"><a class="nav-link" href="/document/o-'+response.id+'">'+file.name.slice(0,-4)+'</a></li>')
+        });
+    }
+};
+
+        </script>
+
+        <!-- App js -->
+        <script src="../../static/js/app.js"></script>
+    </body>
+</html>

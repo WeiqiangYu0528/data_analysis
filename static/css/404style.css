@@ -1,11 +1,7 @@
 
-@import url(bootstrap.min1.css);
+@import url(bootstrap.min.css);
 @import url("http://fonts.googleapis.com/css?family=Dosis:400,200,600");
-/*
-* http://meyerweb.com/eric/tools/css/reset/
-* v2.0 | 20110126
-* License: none (public domain)
-*/
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -26,7 +22,6 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline; }
 
-/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, main {
   display: block; }
@@ -49,9 +44,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* ------------------------------------- */
-/* 1. Generic styles ................... */
-/* ------------------------------------- */
+
 body {
   font-family: Dosis, "Helvetica Neue", "Lucida Grande", Arial, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -139,14 +132,6 @@ a {
         margin-right: 10px;
         font-size: 22px; }
 
-/* ------------------------------------- */
-/* 7. Media Queries .................... */
-/* ------------------------------------- */
-/* Large Devices, Wide Screens */
-/* Notebook devices */
-/* Medium Devices, Desktops */
-/* Small Devices, Tablets */
-/* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
   #container {
     min-height: 100%;
