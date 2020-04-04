@@ -71,30 +71,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="example-search-input" class="col-sm-2 col-form-label">Number of Nodes</label>
-                                                <div class="col-sm-10">
-                                                     <input class="form-control" type="number" id="upload-node" name="node" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="example-email-input" class="col-sm-2 col-form-label">Temporal Edges</label>
-                                                <div class="col-sm-10">
-                                                 <input class="form-control" type="number" id="upload-tedge" name="tedge" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="example-url-input" class="col-sm-2 col-form-label">Edges in static graph</label>
-                                                <div class="col-sm-10">
-                                                   <input class="form-control" type="number" id="upload-sedge" name="sedge" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="example-tel-input" class="col-sm-2 col-form-label">Time span</label>
-                                                <div class="col-sm-10">
-                                                    <input class="form-control" type="text"  id="upload-tspan" name="tspan">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
                                                 <label for="example-number-input" class="col-sm-2 col-form-label">Description</label>
                                                 <div class="col-sm-10">
                                                   <input class="form-control" type="text"  id="upload-des" name="des" >
@@ -111,7 +87,7 @@
                                                 </div>
                                             </div>
                                              <p class="text-muted m-b-30 font-14">The dataset file should conform to the <code
-                                                    class="highlighter-rouge">format</code>, otherwise the file would fail to upload to the system.</p>
+                                                    class="highlighter-rouge"><a href="../doc#upload-section" style="color:#4bbbce">format</a></code>, otherwise the file would fail to upload to the system.</p>
 
 
                                             <form action="/upload/" class="dropzone" method="POST" id="drop">
@@ -174,31 +150,14 @@
         $('#upload').on("click", function() {
             myDropzone.processQueue(); // Tell Dropzone to process all queued files.
         });
-        let node=$('#upload-node').val()
-        let tedge=$('#upload-tedge').val()
-        let sedge=$('#upload-sedge').val()
-        if(node===""){
-            node=0
-        }
-        if(tedge===""){
-            tedge=0
-        }
-        if(sedge===""){
-            sedge=0
-        }
         this.on("sending", function(file, xhr, formData) {
                   formData.append("dname", file.name);
                   formData.append("dtype", $('#upload-type').val());
-                  formData.append("node", node);
-                  formData.append("tedge", tedge);
-                  formData.append("sedge", sedge);
-                  formData.append("tspan", $('#upload-tspan').val());
                   formData.append("des", $('#upload-des').val());
                 });
         this.on('success',function(file,response){
             console.log(file.name)
             console.log(response.id)
-            console.log(response)
             $("#dataset").append('<li class="nav-item"><a class="nav-link" href="/document/o-'+response.id+'">'+file.name.slice(0,-4)+'</a></li>')
         });
     }

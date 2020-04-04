@@ -34,7 +34,7 @@ for item in otherData.objects.all():
     dataset.append(item.return_id())
     dataset.append(item.return_name())
     datasets.append(dataset)
-print(datasets)
+# print(datasets)
 
 
 def index(request):
@@ -70,17 +70,12 @@ def document(request,type,id):
     path = "pages/document.html"
     min_date=item.return_mindate()
     max_date=item.return_maxdate()
+    info = [types, item.return_timespan(), item.return_nodes(), item.return_temporal_edges(),item.return_static_edges()]
+    data_info = [[item for item in row] for index, row in data.head(12).iterrows()]
     details=[min_date,max_date,item.return_maxdegree(),item.return_mindegree(),item.return_averagedegree(),description]
-    data_info = [[item for item in row ] for index, row in data.head(12).iterrows()]
-    info = [types,item.return_nodes(), item.return_temporal_edges(), item.return_static_edges(), item.return_timespan()]
-    # if(filename=="soc-sign-bitcoinalpha.csv"):
-    #     details.append("-10 to +10")
-    #     details.append("93%")
-    # if (filename == "soc-sign-bitcoinotc.csv"):
-    #     details.append("-10 to +10")
-    #     details.append("89%")
     dates=[min_date.month,min_date.year,max_date.month,max_date.year]
     context={
+            "type":type,
             "datasets":datasets,
             "data_info":data_info,
              "filename":filename,
@@ -136,7 +131,7 @@ def readfile(filename):
 
 
 
-def preprocess(data):
+def preprocess(data,df):
     mini = data['UNIXTS'].min()
     maxi = data['UNIXTS'].max()
     mini_date = timestamp2datetime(mini)
@@ -147,8 +142,14 @@ def preprocess(data):
     max_degree= values.most_common()[0][1]
     min_degree= values.most_common()[-1][1]
     avg_degree= round(len(data)*2/len(values))
-    # delta = calDelta(maxi_date, mini_date)
-    return [mini_date,maxi_date,max_degree,min_degree,avg_degree]
+    delta = calDelta(maxi_date, mini_date)
+    nodes1 = df['SRC'].unique()
+    nodes2 = df['DST'].unique()
+    nodes = len(np.unique(np.append(nodes1, nodes2)))
+    temporal_edge = len(df)
+    df1 = df['SRC'].apply(lambda x: str(x) + " ")+df['DST'].apply(lambda x: str(x))
+    static_edge=len(df1.unique())
+    return [mini_date,maxi_date,max_degree,min_degree,avg_degree,delta,nodes,temporal_edge,static_edge]
 
 
 def timestamp2datetime(timestamp):
@@ -725,16 +726,6 @@ def extra(request):
     }
     return render(request, "pages/form-uploads.html",context)
 
-# def upload(request):
-#     if request.method == 'POST' and request.FILES['myfile']:
-#         myfile = request.FILES['myfile']
-#         fs = FileSystemStorage()
-#         filename = fs.save(myfile.name, myfile)
-#         uploaded_file_url = fs.url(filename)
-#         return render(request, 'core/simple_upload.html', {
-#             'uploaded_file_url': uploaded_file_url
-#         })
-#     return render(request, 'core/simple_upload.html')
 
 def upload_file(file):
     if not file:
@@ -752,35 +743,30 @@ def upload(request):
     id = int(datasets[-1][0]) + 1
     name=request.POST.get('dname')
     type=request.POST.get('dtype')
-    nodes=int(request.POST.get('node'))
-    tedges=int(request.POST.get('tedge'))
-    sedges=int(request.POST.get('sedge'))
-    tspan=request.POST.get('tspan')
     description=request.POST.get('des')
     file = request.FILES.get("file", None)  # 获取上传的文件，如果没有文件，则默认为None
     success=upload_file(file)
     if success:
         try:
             data=readotherfile(name)
-            statistic=preprocess(data)
             df,unixts=return_odf(name)
             months=return_time(df,unixts)
+            statistic = preprocess(data,df)
             h,div1,div2=apollo(unixts, df, 'bc')
             mini=statistic[0]
             maxi=statistic[1]
             div3= generateImg(df,'m', name, mini[:4], maxi[:4])
             print(mini,maxi)
             result=community_detection(df,'l',mini[:4],3)
-            # print(result['nodes'],,,result['method'])
             div4=caltotal(name,df,months)
             div5=model(df,0.2,months,h,'d')
             otherData.objects.create(
             Name = name,
             types= type,
-            Nodes = nodes,
-            Temporal_Edges = tedges,
-            Static_Edges = sedges,
-            TimeSpan = tspan,
+            Nodes = statistic[6],
+            Temporal_Edges= statistic[7],
+            Static_Edges=statistic[8],
+            TimeSpan = statistic[5],
             min_date = datetime.datetime.strptime(mini, "%Y-%m-%d %H:%M:%S"),
             max_date =datetime.datetime.strptime(maxi, "%Y-%m-%d %H:%M:%S"),
             max_degree = statistic[2],
@@ -810,19 +796,7 @@ def upload(request):
         return "Fail to upload the file"
     return JsonResponse(context,NpEncoder)
 
-# def preprocess(data):
-#     mini = data['UNIXTS'].min()
-#     maxi = data['UNIXTS'].max()
-#     mini_date = timestamp2datetime(mini)
-#     maxi_date = timestamp2datetime(maxi)
-#     values1 = data['SRC'].values.tolist()
-#     values2 = data['DST'].values.tolist()
-#     values = Counter(values1) + Counter(values2)
-#     max_degree= values.most_common()[0][1]
-#     min_degree= values.most_common()[-1][1]
-#     avg_degree= round(len(data)*2/len(values))
-#     # delta = calDelta(maxi_date, mini_date)
-#     return [mini_date,maxi_date,max_degree,min_degree,avg_degree]
+
 def caltotal(fn,df,months):
     pics=[]
     for month in months:
@@ -850,3 +824,7 @@ def return_odf(filename):
     df = data[['SRC', 'DST']]
     df.index = unixts.index
     return df,unixts
+
+
+
+
