@@ -1,0 +1,62 @@
+
+            <div class="left side-menu">
+                <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+                    <i class="mdi mdi-close"></i>
+                </button>
+
+                <div class="sidebar-inner slimscrollleft">
+
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="menu-title">Main</li>
+
+                            <li>
+                                <a href="../index/" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Home </span>
+                                </a>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-archive"></i> <span>Datasets </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="list-unstyled">
+                                      {% for item in files %}
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="/document/s-{{ forloop.counter0 }}">
+                                                {{ item|slice:"-4" }}
+                                            </a>
+                                          </li>
+                                      {% endfor %}
+                                </ul>
+                            </li>
+                                  <li>
+                                <a href="/extra" class="waves-effect">
+                                    <i class="dripicons-upload"></i>
+                                    <span> Upload </span>
+                                </a>
+                            </li>
+                                <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span>Extra Datasets </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="list-unstyled" id="dataset">
+                                      {% for item in datasets %}
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="/document/o-{{ item.0 }}">
+                                                {{ item.1|slice:"-4" }}
+                                            </a>
+                                          </li>
+                                      {% endfor %}
+                                </ul>
+                            </li>
+                                <li>
+                                <a href="/doc" class="waves-effect">
+                                    <i class="dripicons-direction"></i>
+                                    <span> Documentation </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div> <!-- end sidebarinner -->
+            </div>
+
+

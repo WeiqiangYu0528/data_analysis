@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Temporal Graph Management System</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="ThemeDesign" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+        <!-- morris css -->
+        <link rel="stylesheet" href="../../static/plugins/morris/morris.css">
+
+        <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/style.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+    </head>
+
+    <body class="fixed-left">
+
+        <!-- Loader -->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+   <!-- ========== Left Sidebar Start ========== -->
+        {% include "pages/sidebar.html" %}
+            <!-- Left Sidebar End -->
+
+            <!-- Start right Content here -->
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <!-- Top Bar Start -->
+                   {% include "pages/topbar.html" %}
+                    <!-- Top Bar End -->
+
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+                              <div style="padding: 12px 0"></div>
+                            <!-- end page title -->
+
+                                  <div class="row">
+                                <div class="col-xl-9">
+                                    <div class="card"  id="up">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">Datasets Information</h4>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">ID No.</th>
+                                                            <th scope="col">Datasets</th>
+                                                            <th scope="col">Type</th>
+                                                            <th scope="col">Nodes</th>
+                                                            <th scope="col">Temporal Edges</th>
+                                                            <th scope="col">Static Edges</th>
+                                                            <th scope="col">Description</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {% for item in info %}
+                                                            <tr>
+                                                            <th scope="row">{{ item.0|add:1 }}</th>
+                                                            <td>{{ item.1|slice:"-4" }}</td>
+                                                            <td>{{ item.2 }}</td>
+                                                            <td>{{ item.3 }}</td>
+                                                            <td>{{ item.4 }}</td>
+                                                            <td>{{ item.5 }}</td>
+                                                            <td>{{ item.6 }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="card"  id="down" style="height: 645px;overflow: auto;" >
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title mb-4">Document files</h4>
+                                            <table class="table table-striped mb-0" >
+                                                <tbody>
+                                                 {% for file in files %}
+                                                         <tr>
+                                                        <td><i class="fa fa-file text-primary h2"></i></td>
+                                                        <td>
+                                                            <p class="mt-0" style="font-size: 13px">{{ file }}</p>
+                                                        <td>
+                                                            <a href="/download/{{ file }}" class="btn btn-primary btn-sm">
+                                                                <i class="fas fa-download"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- container fluid -->
+
+                    </div> <!-- Page content Wrapper -->
+
+                </div> <!-- content -->
+
+{#                <footer class="footer">#}
+{#                    © 2019  <span class="d-none d-md-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by .</span>#}
+{#                </footer>#}
+
+            </div>
+            <!-- End Right content here -->
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- jQuery  -->
+        <script src="../../static/js/jquery.min.js"></script>
+        <script src="../../static/js/bootstrap.bundle.min.js"></script>
+        <script src="../../static/js/modernizr.min.js"></script>
+        <script src="../../static/js/detect.js"></script>
+        <script src="../../static/js/fastclick.js"></script>
+        <script src="../../static/js/jquery.slimscroll.js"></script>
+        <script src="../../static/js/jquery.blockUI.js"></script>
+        <script src="../../static/js/waves.js"></script>
+        <script src="../../static/js/jquery.nicescroll.js"></script>
+        <script src="../../static/js/jquery.scrollTo.min.js"></script>
+
+        <!--Morris Chart-->
+        <script src="../../static/plugins/morris/morris.min.js"></script>
+        <script src="../../static/plugins/raphael/raphael.min.js"></script>
+
+        <!-- dashboard js -->
+        <script src="../../static/pages/dashboard.int.js"></script>        
+
+        <!-- App js -->
+        <script src="../../static/js/app.js"></script>
+
+    </body>
+</html>
