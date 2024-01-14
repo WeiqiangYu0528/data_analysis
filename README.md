@@ -1,5 +1,10 @@
 # Temporal Graph Management System
 
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/WeiqiangYu0528/data_analysis/edit/master/README.md)
+[![zh-cn](https://img.shields.io/badge/lang-zh--cn-blue.svg)](https://github.com/WeiqiangYu0528/data_analysis/edit/master/README.zh-cn.md)
+
+如果您想阅读中文，请点击上方的“zh-cn”按钮。
+
 ### Manual
 First, download the project files and extract them.
 
