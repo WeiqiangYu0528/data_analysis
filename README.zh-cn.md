@@ -1,6 +1,6 @@
 # Temporal Graph Management System
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/WeiqiangYu0528/data_analysis/edit/master/README.md)
-[![zh-cn](https://img.shields.io/badge/lang-zh--cn-blue.svg)](https://github.com/WeiqiangYu0528/data_analysis/edit/master/README.zh-cn.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/WeiqiangYu0528/data_analysis/blob/master/README.md)
+[![zh-cn](https://img.shields.io/badge/lang-zh--cn-blue.svg)](https://github.com/WeiqiangYu0528/data_analysis/blob/master/README.zh-cn.md)
 
 If you prefer to read in English, please click the 'lang-en' button above.
 ### 使用方法
